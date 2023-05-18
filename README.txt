@@ -24,8 +24,8 @@ Files:
 
 To run app,
 1. Install modules from requirements.txt
-pip install -r requirements.txt
-	python version- 3.9.16
+	pip install -r requirements.txt
+python version- 3.9.16
 2. Run Flask app
    flask –app backend run”
 
