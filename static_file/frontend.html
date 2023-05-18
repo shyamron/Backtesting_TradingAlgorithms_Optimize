@@ -160,6 +160,7 @@
         })
   .then(res => res.json().then(data => {
   console.log(data);
+  // if wrong ticker entered
   if (data.error) {
   const errorMessage = document.createElement('p');
   errorMessage.textContent = data.error;
@@ -170,6 +171,8 @@
   const container = document.getElementById('error');
   container.appendChild(errorMessage);
 }else{
+  
+  // required output obtained
   const finalOutput = data.final_output;
   const optimisedFinalOutput = data.optimised_final_output;
 

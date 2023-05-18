@@ -1,18 +1,12 @@
 from backtesting import Backtest, Strategy
-from backtesting.lib import crossover,resample_apply
+from backtesting.lib import crossover
 from backtesting.test import SMA
 import yfinance as yf
 import datetime as dt
-from backtrader.analyzers import TradeAnalyzer
 import talib
 
-
-import pyswarms as ps
-from pyswarms.utils.functions import single_obj as fx
-
-
-
 class SMAStrategy(Strategy):
+    # initialise lengths of moving average
     n1 = 10
     n2 = 20
     def init(self):
@@ -26,18 +20,8 @@ class SMAStrategy(Strategy):
         elif crossover(self.ma2, self.ma1):
             self.sell()
 
-class MACDStrategy(Strategy):
-    def init(self):
-        price=self.data.Close
-        self.macd=self.I(lambda x:talib.MACD(x)[0],price)
-        self.macd_signal=self.I(lambda x:talib.MACD(x)[1],price)
-    def next(self):
-        if crossover(self.macd, self.macd_signal):
-            self.buy()
-        elif crossover(self.macd_signal,self.macd):
-            self.sell()
-
 class RSIStrategy(Strategy):
+    # initialise upper bound, lower bound, rsi window
     upper_bound = 70
     lower_bound = 30
     rsi_window = 14 
@@ -51,7 +35,7 @@ class RSIStrategy(Strategy):
         else:
             if crossover(self.lower_bound, self.rsi):
                 self.buy()
-
+# optimization for RSI
 def rsi_optimize(bt):
     stats=bt.optimize(
         upper_bound=range(50,85,5),
@@ -62,9 +46,8 @@ def rsi_optimize(bt):
     )
     return stats
 
-def macdoptimize(bt):
-    pass
 
+# optimization for SMA
 def sma_optimize(bt):
     stats = bt.optimize(n1=range(5, 30, 5),
                     n2=range(10, 70, 5),
@@ -74,8 +57,6 @@ def sma_optimize(bt):
     return stats
 
 def optimize(backtest,entered_strategy):
-    # if entered_strategy=='MACD':
-    #   op_output=macdoptimize(backtest)
     if entered_strategy=='RSI':
        op_output=rsi_optimize(backtest)
     elif entered_strategy=='SMA':
@@ -85,29 +66,32 @@ def optimize(backtest,entered_strategy):
     return op_output
 
 def analyse(entered_data):
+    # get date
     _start = dt.date(2022,1,2)
     _end = dt.date(2022,12,12)
     entered_ticker = entered_data['symbol']
     
+    # download history data 
     data = yf.download(entered_ticker, start = _start, end = _end)
     print(data)
     entered_strategy=entered_data['strategy']
-    # if entered_strategy=='MACD':
-        # backtest = Backtest(data, MACDStrategy, commission=0.002, exclusive_orders=True)
     if entered_strategy=='RSI':
         backtest=Backtest(data, RSIStrategy, commission=0.002, exclusive_orders=True)
     elif entered_strategy=='SMA':
         backtest=Backtest(data, SMAStrategy, commission=0.002, exclusive_orders=True)
     else:
         print('no such strategy')
-    
+    # run backtest
     stats=backtest.run()
-    final_plot=backtest.plot()
+    final_plot=backtest.plot(filename='Before_optimization_plot.html')
     print(stats)
 
+    # optimize strategy
     op_stats=optimize(backtest,entered_strategy)
-    optimized_final_plot=backtest.plot()
+    optimized_final_plot=backtest.plot(filename='After_optimization_plot.html')
     print(op_stats)
+
+    # final outputs
     final_output={
         'Start':stats.Start,
         'End':stats.End,
