@@ -10,7 +10,7 @@ The project consists of several files and directories:
 1. static_file/frontend.html: This file contains the frontpage UI for the trading platform.
 2. backend.py: This file is the backend of the trading platform and uses the Flask framework. It handles the routing and communication with the frontend.
 3. analyser.py: This file contains the logic for backtesting and optimization of trading strategies. It is called by the backend.py file to perform the analysis and return the results to      the frontend.
-4. requirements.txt: This file lists the required Python modules and their versions. You can install them using the command pip install -r requirements.txt.
+4. requirements.txt: This file lists the required Python modules and their versions.
 
 
 **Running the App**
@@ -20,6 +20,7 @@ The project consists of several files and directories:
 	pip install -r requirements.txt
 	
 python version- 3.9.16
+
 2. Run Flask app
 
    flask –app backend run”
