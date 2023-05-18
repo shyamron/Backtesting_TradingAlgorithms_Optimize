@@ -1,4 +1,6 @@
 Algorithmic Trading Platform with Backtesting and Optimization
+
+
 This is final project given by Coderush as a part of Genese Placement Program. The projects is to build a trading platform that allows users to Backtest and Optimize Trading Strategies.
 Tools Used:
 1. Python with Backtesting library
@@ -14,14 +16,16 @@ Optimization is done by varying parameter values in SMA and RSI.
 Files:
 1. static_file/frontend.html is frontpage UI
 2. backend.py uses Flask framework.
-       Run ìflask ñapp backend runî 
+       Run ‚Äúflask ‚Äìapp backend run‚Äù 
 3. backend.py calls analyse function from analyser.py file. 
 4. analyser.py runs all backtesting and optimization and returns outputs to UI and displays plots for each.
+
+
 
 To run app,
 1. Install modules from requirements.txt
 pip install -r requirements.txt
 	python version- 3.9.16
 2. Run Flask app
-   flask ñapp backend runî
+   flask ‚Äìapp backend run‚Äù
 
