@@ -56,7 +56,7 @@ def rsi_optimize(bt):
     stats=bt.optimize(
         upper_bound=range(50,85,5),
         lower_bound=range(10,45,5),
-        # rsi_window=range(10,30,2),
+        rsi_window=range(10,30,2),
         maximize='Return [%]',
         constraint=lambda param: param.upper_bound > param.lower_bound
     )
@@ -70,12 +70,13 @@ def sma_optimize(bt):
                     n2=range(10, 70, 5),
                     maximize='Return [%]',
                     constraint=lambda param: param.n1 < param.n2)
+    
     return stats
 
 def optimize(backtest,entered_strategy):
-    if entered_strategy=='MACD':
-      op_output=macdoptimize(backtest)
-    elif entered_strategy=='RSI':
+    # if entered_strategy=='MACD':
+    #   op_output=macdoptimize(backtest)
+    if entered_strategy=='RSI':
        op_output=rsi_optimize(backtest)
     elif entered_strategy=='SMA':
        op_output= sma_optimize(backtest)
@@ -84,16 +85,16 @@ def optimize(backtest,entered_strategy):
     return op_output
 
 def analyse(entered_data):
-    _start = dt.date(2015,1,2)
-    _end = dt.date(2021,12,12)
+    _start = dt.date(2022,1,2)
+    _end = dt.date(2022,12,12)
     entered_ticker = entered_data['symbol']
     
     data = yf.download(entered_ticker, start = _start, end = _end)
     print(data)
     entered_strategy=entered_data['strategy']
-    if entered_strategy=='MACD':
-        backtest = Backtest(data, MACDStrategy, commission=0.002, exclusive_orders=True)
-    elif entered_strategy=='RSI':
+    # if entered_strategy=='MACD':
+        # backtest = Backtest(data, MACDStrategy, commission=0.002, exclusive_orders=True)
+    if entered_strategy=='RSI':
         backtest=Backtest(data, RSIStrategy, commission=0.002, exclusive_orders=True)
     elif entered_strategy=='SMA':
         backtest=Backtest(data, SMAStrategy, commission=0.002, exclusive_orders=True)

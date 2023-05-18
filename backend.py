@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template,jsonify,make_response
+from flask import Flask, request, render_template,jsonify,make_response, Response,json
 from flask_cors import CORS
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -18,8 +18,8 @@ def frontpage():
     return render_template('frontend.html')
 
 def start_task(entered_data):
-    final_output,optimised_final_output,final_plot,optimized_final_plot=analyse(entered_data)
-    return final_output,optimised_final_output,final_plot,optimized_final_plot
+    final_output,optimised_final_output=analyse(entered_data)
+    return final_output,optimised_final_output
 
 @app.route("/submit",methods=['POST'])
 def submitted():
@@ -34,9 +34,11 @@ def submitted():
             'final_output': final_output,
             'optimised_final_output': optimised_final_output
         } 
-        return jsonify(response_data)
     except:
-        return jsonify({'error': 'Please Enter Valid Ticker Symbol.'})
+        response_data={
+            'error': 'Please Enter Valid Ticker Symbol.'
+            }
+    return Response(json.dumps(response_data, sort_keys=False))
          
           
         

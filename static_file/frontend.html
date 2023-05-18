@@ -109,10 +109,10 @@
 <body>
 
 <div class="navbar">
-    <h1>US Stock Market Strategy Analysis</h1>
+    <h1>US Stock Trading Strategy Analysis</h1>
 </div>
 <div class="info">
-    1. Enter stock ticker symbol (Eg. AAPL, AMGN, AXP, BA, CAT, DIS, DOW, GS, HD, HON, IBM, INTC, JNJ, MCD, MMM, MRK, MSFT, V, VZ, WBA, WMT) <br>
+    1. Enter stock ticker symbol (Eg. AAPL, AMGN, AXP, BA, CAT, DIS, DOW, GS, HD, HON, IBM, INTC, JNJ, MCD, MMM, MRK, MSFT, V, VZ, WBA, WMT and others) <br>
     2. Select trading strategy
     <br>
     </div>
@@ -126,7 +126,7 @@
     <label for="strategy">Strategy Type: *</label>
     <select id="strategy" name="strategy" required>
         <option value="" >Select</option>
-        <option value="MACD">MACD</option>
+        <!-- <option value="MACD">MACD</option> -->
         <option value="RSI">RSI Oscillator</option>
         <option value="SMA">SMA</option>
     </select>
@@ -142,36 +142,6 @@
 <!-- Div for error messege -->
 <div id="error"></div>
    
-
-<!-- Autocomplete tickers symbols. Can add more -->
-<!-- <script>
-    $(function() {
-
-        var availableTickers = [
-          "AAPL", "AMGN", "AXP", "BA", "CAT", "CRM", "CSCO", "CVX", "DIS", "DOW", "GS", "HD", "HON", "IBM", "INTC", "JNJ",
-          "JPM", "KO", "MCD", 'PAYC', 'PBF', 'PBFX', 'BTU', 'PSO', 'PEB', 'PBA', 'KSS', 'PHG', 'KTB', 'KOP', 'KEP', 'KF', 'KFY',"MMM", "MRK", "MSFT", "NKE", "PG",
-           "TRV", "UNH", "V","VZ", "WBA", "WMT",'WYY', 'WTT', 'XTNT', 'ZDGE', 'ZOM','NID', 'NMY', 'NMT', 'NUM', 'NMS'
-        ];
-      
-        $("#symbol").autocomplete({
-          source: availableTickers,
-          change: function(event, ui) {
-            var value = $(this).val();
-            var valid = false;
-            for (var i = 0; i < availableTickers.length; i++) {
-              if (availableTickers[i].toLowerCase() === value.toLowerCase()) {
-                valid = true;
-                break;
-              }
-            }
-            if (!valid) {
-            alert("Invalid ticker symbol!");
-            $(this).val("");
-          }
-          }
-        });
-      });
-</script> -->
 
 <script>
     document.getElementById("entry").addEventListener("submit", function(e) {
@@ -211,7 +181,7 @@
 
   const titleRow = document.createElement('tr');
   const titleCell = document.createElement('td');
-  titleCell.textContent = 'Backtesting Output';
+  titleCell.textContent = 'Backtesting Output for '+symbol+' using '+strategy;
   titleCell.style.border = '1px solid #ddd';
   titleCell.style.padding = '8px';
   titleCell.style.fontWeight = 'bold';
@@ -250,7 +220,7 @@
 
   const optimisedTitleRow = document.createElement('tr');
   const optimisedTitleCell = document.createElement('td');
-  optimisedTitleCell.textContent = 'Output for Optimized Strategy';
+  optimisedTitleCell.textContent = 'Output for Optimized Strategy for '+symbol+' using '+strategy;
   optimisedTitleCell.style.border = '1px solid #ddd';
   optimisedTitleCell.style.padding = '8px';
   optimisedTitleCell.style.fontWeight = 'bold';
