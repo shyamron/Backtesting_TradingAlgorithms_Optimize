@@ -1,4 +1,4 @@
-Algorithmic Trading Platform with Backtesting and Optimization
+**##Algorithmic Trading Platform with Backtesting and Optimization**
 
 
 This is final project given by Coderush as a part of Genese Placement Program. The projects is to build a trading platform that allows users to Backtest and Optimize Trading Strategies.
