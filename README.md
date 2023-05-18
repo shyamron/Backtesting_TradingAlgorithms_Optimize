@@ -16,9 +16,12 @@ The project consists of several files and directories:
 **Running the App**
 
 1. Install modules from requirements.txt
+
 	pip install -r requirements.txt
+	
 python version- 3.9.16
 2. Run Flask app
+
    flask –app backend run”
    
    
@@ -35,6 +38,6 @@ The trading platform allows users to perform the following tasks:
 
 2. Optimization: Users can optimize the parameters of the selected trading strategy. The platform will vary the parameter values and evaluate the strategy's performance to find the optimal values.
 
-3. Display Results: The platform will display the backtest results and optimization outputs to the user. This includes performance metrics, such as profit/loss, and visualization of the strategy's performance using plots.
+3. Display Results: The platform will display the backtest results and optimization outputs to the user. This includes performance metrics, and visualization of the strategy's performance using plots.
 
 
